@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<ul id="ul"></ul>
+	<input type="text" id="inp" />
+	<button id="btn">搜索</button>
+
+	<script>
+		var oul = document.getElementById('ul');
+		var inp = document.getElementById('inp');
+		var btn = document.getElementById('btn');
+		var ohead = document.getElementsByTagName('head')[0];
+
+		btn.onclick = function(){
+			var oscript = document.createElement('script');
+			oscript.src='https://api.douban.com/v2/book/search?q='+inp.value+'&callback=show';
+			ohead.appendChild(oscript);
+		}
+
+		function show(data){
+			var tem = '';
+			for(var i = 0;i<data.books.length;i++){
+				tem += "<li><img src="+data.books[i].image+"><p>"+data.books[i].author+"</p>"
+			}
+			oul.innerHTML = tem;
+		}
+	</script>
+</body>
+</html>
